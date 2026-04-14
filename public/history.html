@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Заявки | СоцПомощь</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Заявки SOS</h1>
+
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="app.html">SOS</a>
+    <a href="history.html">Заявки</a>
+    <a href="login.html" id="loginBtn">Вход</a>
+  </nav>
+
+  <!-- 👇 роль пользователя -->
+  <div id="roleBadge"></div>
+</header>
+
+<div class="container">
+
+  <h2>📋 Список заявок</h2>
+
+  <!-- 👇 фильтр (используется твоим JS) -->
+  <div class="filters">
+    <button class="btn" onclick="setFilter('all')">Все</button>
+    <button class="btn secondary" onclick="setFilter('new')">Новые</button>
+    <button class="btn secondary" onclick="setFilter('in_progress')">В работе</button>
+    <button class="btn secondary" onclick="setFilter('done')">Завершённые</button>
+  </div>
+
+  <!-- 👇 список -->
+  <div id="list"></div>
+
+  <!-- 👇 пустое состояние -->
+  <p id="emptyState" style="display:none; opacity:0.6;">
+    Пока нет заявок
+  </p>
+
+</div>
+
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>

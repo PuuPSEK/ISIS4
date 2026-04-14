@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход | СоцПомощь</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="container center">
+
+  <h1>СоцПомощь</h1>
+  <p>Выберите роль входа в систему</p>
+
+  <!-- 👇 текущий статус -->
+  <div id="currentStatus"></div>
+
+  <button class="btn" onclick="login('pensioner')">👵 Пенсионер</button>
+  <button class="btn secondary" onclick="login('volunteer')">🧑‍⚕️ Волонтёр</button>
+  <button class="btn danger" onclick="login('admin')">🛠 Администратор</button>
+
+  <br><br>
+
+  <!-- 👇 выход -->
+  <button class="btn secondary" onclick="logout()">↩ Выйти / сменить пользователя</button>
+
+</div>
+
+<script>
+function login(role) {
+  localStorage.setItem("role", role);
+  location.href = "index.html";
+}
+
+function logout() {
+  localStorage.removeItem("role");
+  location.reload();
+}
+
+/* =======================
+   ИНДИКАТОР СТАТУСА
+======================= */
+const role = localStorage.getItem("role");
+
+const status = document.getElementById("currentStatus");
+
+if (status) {
+  if (!role) {
+    status.innerHTML = "🔵 Вы не вошли в систему";
+  }
+
+  if (role === "pensioner") {
+    status.innerHTML = "👵 Вы вошли как пенсионер";
+  }
+
+  if (role === "volunteer") {
+    status.innerHTML = "🧑‍⚕️ Вы вошли как волонтёр";
+  }
+
+  if (role === "admin") {
+    status.innerHTML = "🛠 Вы вошли как администратор";
+  }
+}
+</script>
+
+</body>
+</html>

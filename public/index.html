@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>СоцПомощь</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>СоцПомощь</h1>
+
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="history.html">Заявки</a>
+    <a href="login.html" id="loginBtn">Вход</a>
+  </nav>
+
+  <!-- 👇 РОЛЬ ПОЛЬЗОВАТЕЛЯ -->
+  <div id="roleBadge"></div>
+</header>
+
+<div class="container">
+
+  <h2>📨 Создать SOS-запрос</h2>
+
+  <!-- 👇 ПОДСКАЗКА РОЛИ -->
+  <p id="roleHint"></p>
+
+  <!-- 👇 ФОРМА -->
+  <form id="sosForm">
+
+    <input type="text" id="full_name" placeholder="ФИО" required>
+    <input type="text" id="phone" placeholder="Телефон" required>
+    <input type="number" id="age" placeholder="Возраст" required>
+    <textarea id="problem_text" placeholder="Опишите проблему" required></textarea>
+    <input type="text" id="address" placeholder="Адрес">
+
+    <button class="btn danger" type="submit">
+      🚨 Отправить SOS
+    </button>
+
+  </form>
+
+</div>
+
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>

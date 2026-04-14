@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #f6f3f7, #eef1f6);
+  color: #2b2b2b;
+  font-size: 16px;
+}
+
+/* HEADER */
+header {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+}
+
+header h1 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* NAV */
+nav a {
+  margin-right: 14px;
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+nav a:hover {
+  color: #8c6fd1;
+}
+
+/* CONTAINER */
+.container {
+  width: 92%;
+  max-width: 900px;
+  margin: auto;
+  padding: 25px 0;
+}
+
+/* BUTTONS */
+.btn {
+  background: linear-gradient(135deg, #b8a3d0, #9f8bc6);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  margin: 6px 4px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.25s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.btn.secondary {
+  background: linear-gradient(135deg, #9fbad6, #7fa6c8);
+}
+
+.btn.danger {
+  background: linear-gradient(135deg, #d6a0b8, #c77a9d);
+}
+
+/* INPUT */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  font-size: 15px;
+  background: #fff;
+  transition: 0.2s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #b8a3d0;
+  box-shadow: 0 0 0 3px rgba(184,163,208,0.2);
+}
+
+/* CARD */
+.card {
+  background: #ffffff;
+  padding: 16px;
+  margin: 14px 0;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  line-height: 1.6;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* STATUS COLORS (мягкие и приятные) */
+.new {
+  border-left: 6px solid #d9b3ff;
+  background: #faf5ff;
+}
+
+.in_progress {
+  border-left: 6px solid #7fb3ff;
+  background: #f2f7ff;
+}
+
+.done {
+  border-left: 6px solid #7fd6a3;
+  background: #f2fff7;
+}
+
+/* ROLE BADGE (иконка роли) */
+#roleBadge {
+  background: #ffffff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* NOTIFY */
+.notify {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #b8a3d0;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* CENTER LOGIN */
+.center {
+  text-align: center;
+  margin-top: 80px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    margin-top: 10px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
