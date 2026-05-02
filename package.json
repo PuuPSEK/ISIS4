@@ -1,0 +1,17 @@
+{
+  "name": "socpomosh-crm-pro",
+  "version": "2.0.0",
+  "description": "СоцПомощь — SOS-платформа с CRM-ready интерфейсом и подготовкой интеграции",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
