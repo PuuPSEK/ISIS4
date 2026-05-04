@@ -5,7 +5,7 @@
 ## Демо
 
 ```text
-https://isis4.onrender.com
+https://socpomosh.onrender.com
 ```
 
 ## Описание
