@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>CRM | СоцПомощь</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header>
+  <div class="logo">
+    <div class="logo-mark">SOS</div>
+    <div>
+      <h1>СоцПомощь</h1>
+      <span class="muted">Внутренняя CRM</span>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="app.html">Подать заявку</a>
+    <a href="history.html">Заявки</a>
+    <a href="crm.html">CRM</a>
+    <a href="login.html" id="loginBtn">Вход</a>
+  </nav>
+  <div id="roleBadge"></div>
+</header>
+<main class="container">
+  <section class="panel">
+    <span class="badge">Внутренняя CRM</span>
+    <h2>CRM-панель заявок</h2>
+    <p class="lead">Эта страница заменяет внешнюю CRM и позволяет управлять SOS-заявками: менять статусы, назначать приоритет, волонтёра и комментарий менеджера.</p>
+    <a class="btn secondary" href="/api/crm/export">⬇ Экспорт CSV</a>
+  </section>
+  <section id="statsBox" class="stats"></section>
+  <section id="crmPriorityStats" class="stats"></section>
+  <section class="panel">
+    <div class="toolbar">
+      <div class="filters">
+        <button class="btn" onclick="setFilter('all')">Все</button>
+        <button class="btn secondary" onclick="setFilter('new')">Ожидают</button>
+        <button class="btn secondary" onclick="setFilter('in_progress')">В работе</button>
+        <button class="btn secondary" onclick="setFilter('done')">Завершены</button>
+      </div>
+      <select class="search" onchange="setPriority(this.value)">
+        <option value="all">Все приоритеты</option>
+        <option value="high">Высокий</option>
+        <option value="medium">Средний</option>
+        <option value="low">Низкий</option>
+      </select>
+      <input class="search" type="search" placeholder="Поиск по заявкам..." oninput="setSearch(this.value)">
+    </div>
+    <div class="table-wrap">
+      <table class="crm-table">
+        <thead>
+          <tr><th>ID / дата</th><th>Клиент</th><th>Проблема</th><th>Адрес</th><th>Статус</th><th>Приоритет</th><th>Волонтёр</th><th>Комментарий</th><th>Действия</th></tr>
+        </thead>
+        <tbody id="crmTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

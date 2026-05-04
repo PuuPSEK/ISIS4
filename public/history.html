@@ -11,25 +11,21 @@
     <div class="logo-mark">SOS</div>
     <div>
       <h1>СоцПомощь</h1>
-      <span class="muted">Помощь рядом</span>
+      <span class="muted">Внутренняя CRM</span>
     </div>
   </div>
-
   <nav>
     <a href="index.html">Главная</a>
     <a href="app.html">Подать заявку</a>
     <a href="history.html">Заявки</a>
+    <a href="crm.html">CRM</a>
     <a href="login.html" id="loginBtn">Вход</a>
   </nav>
-
   <div id="roleBadge"></div>
 </header>
-
 <main class="container">
   <h2>📋 Список заявок</h2>
-
   <section id="statsBox" class="stats"></section>
-
   <div class="toolbar">
     <div class="filters">
       <button class="btn" onclick="setFilter('all')">Все</button>
@@ -37,16 +33,11 @@
       <button class="btn secondary" onclick="setFilter('in_progress')">В работе</button>
       <button class="btn secondary" onclick="setFilter('done')">Оказана помощь</button>
     </div>
-
-    <input class="search" type="search" placeholder="Поиск по ФИО, телефону, проблеме или адресу..."
-           oninput="setSearch(this.value)">
+    <input class="search" type="search" placeholder="Поиск..." oninput="setSearch(this.value)">
   </div>
-
   <div id="list"></div>
-
   <p id="emptyState" class="muted" style="display:none;">Пока нет заявок по выбранному фильтру.</p>
 </main>
-
 <script src="assets/js/app.js"></script>
 </body>
 </html>

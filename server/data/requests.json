@@ -3,6 +3,7 @@
     "id": 1,
     "created_at": "2026-04-10 09:15",
     "status": "new",
+    "priority": "high",
     "full_name": "Мария Петровна Иванова",
     "phone": "+7 391 111-11-11",
     "age": 67,
@@ -11,62 +12,7 @@
     "coordinates": "56.014, 92.893",
     "eta_minutes": 15,
     "volunteer_name": "",
-    "notification_channel": "SMS"
-  },
-  {
-    "id": 2,
-    "created_at": "2026-04-11 16:30",
-    "status": "in_progress",
-    "full_name": "Анна Ивановна Смирнова",
-    "phone": "+7 391 222-22-22",
-    "age": 72,
-    "problem_text": "Нужна доставка продуктов",
-    "address": "Красноярск, ул. Ленина, 10",
-    "coordinates": "56.010, 92.852",
-    "eta_minutes": 18,
-    "volunteer_name": "Артём Смирнов",
-    "notification_channel": "Telegram"
-  },
-  {
-    "id": 3,
-    "created_at": "2026-04-12 12:05",
-    "status": "done",
-    "full_name": "Иван Сергеевич Петров",
-    "phone": "+7 391 333-33-33",
-    "age": 70,
-    "problem_text": "Нужна помощь с покупкой продуктов",
-    "address": "Дивногорск, ул. Мира, 5",
-    "coordinates": "55.958, 92.372",
-    "eta_minutes": 20,
-    "volunteer_name": "Елена Кузнецова",
-    "notification_channel": "Звонок"
-  },
-  {
-    "id": 4,
-    "created_at": "2026-04-13 18:45",
-    "status": "new",
-    "full_name": "Нина Александровна",
-    "phone": "+7 391 444-44-44",
-    "age": 76,
-    "problem_text": "Одиноко, нужен разговор с волонтёром",
-    "address": "с. Емельяново, ул. Молодёжная, 2",
-    "coordinates": "56.168, 92.675",
-    "eta_minutes": 25,
-    "volunteer_name": "",
-    "notification_channel": "SMS"
-  },
-  {
-    "id": 5,
-    "created_at": "2026-04-14 08:20",
-    "status": "in_progress",
-    "full_name": "Валентина Михайловна",
-    "phone": "+7 391 555-55-55",
-    "age": 69,
-    "problem_text": "Нужна помощь дойти до аптеки",
-    "address": "Красноярск, пр. Свободный, 79",
-    "coordinates": "56.005, 92.772",
-    "eta_minutes": 12,
-    "volunteer_name": "Павел Орлов",
-    "notification_channel": "Push"
+    "notification_channel": "SMS",
+    "manager_comment": "Перезвонить и уточнить список лекарств"
   }
 ]

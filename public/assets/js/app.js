@@ -12,8 +12,15 @@ const statusText = {
   done: "🟢 Помощь оказана"
 };
 
+const priorityText = {
+  high: "Высокий",
+  medium: "Средний",
+  low: "Низкий"
+};
+
 let currentFilter = "all";
 let currentSearch = "";
+let currentPriority = "all";
 
 const badge = document.getElementById("roleBadge");
 const loginBtn = document.getElementById("loginBtn");
@@ -55,10 +62,7 @@ async function api(path, options = {}) {
 
   const data = await response.json().catch(() => ({}));
 
-  if (!response.ok) {
-    throw new Error(data.error || "Ошибка запроса");
-  }
-
+  if (!response.ok) throw new Error(data.error || "Ошибка запроса");
   return data;
 }
 
@@ -73,26 +77,41 @@ async function loadStats() {
     <div class="stat"><b>${stats.in_progress}</b><span>В работе</span></div>
     <div class="stat"><b>${stats.done}</b><span>Завершены</span></div>
   `;
+
+  const crmPriorityStats = document.getElementById("crmPriorityStats");
+  if (crmPriorityStats) {
+    crmPriorityStats.innerHTML = `
+      <div class="stat"><b>${stats.high}</b><span>Высокий приоритет</span></div>
+      <div class="stat"><b>${stats.medium}</b><span>Средний приоритет</span></div>
+      <div class="stat"><b>${stats.low}</b><span>Низкий приоритет</span></div>
+    `;
+  }
 }
 
 async function loadData() {
-  if (!list) return;
+  if (!list && !document.getElementById("crmTableBody")) return;
 
   try {
     const params = new URLSearchParams();
     params.set("status", currentFilter);
+    params.set("priority", currentPriority);
     if (currentSearch) params.set("search", currentSearch);
 
     const data = await api(`/api/sos?${params.toString()}`);
-    renderRequests(data);
+
+    if (list) renderRequests(data);
+    if (document.getElementById("crmTableBody")) renderCrmTable(data);
+
     loadStats();
   } catch (error) {
-    list.innerHTML = `
-      <div class="card">
-        <b>Не удалось загрузить заявки</b><br>
-        <span class="muted">${error.message}</span>
-      </div>
-    `;
+    if (list) {
+      list.innerHTML = `
+        <div class="card">
+          <b>Не удалось загрузить заявки</b><br>
+          <span class="muted">${error.message}</span>
+        </div>
+      `;
+    }
   }
 }
 
@@ -129,17 +148,16 @@ function renderRequests(items) {
         <div class="meta">
           <span>#${item.id}</span>
           <span>${item.created_at || ""}</span>
-          <span></span>
           <span>${item.notification_channel || "SMS"}</span>
+          <span class="priority ${item.priority || "medium"}">${priorityText[item.priority || "medium"]}</span>
         </div>
-
         <h3>${item.full_name} (${item.age})</h3>
         <p><b>Проблема:</b> ${item.problem_text}</p>
         <p><b>Телефон:</b> ${item.phone}</p>
         <p><b>Адрес:</b> ${item.address}</p>
-        <p><b>Координаты:</b> ${item.coordinates || "не указаны"} · <b>ETA:</b> ${item.eta_minutes || 15} мин</p>
+        <p><b>Ориентир:</b> ${item.coordinates || "не указан"} · <b>ETA:</b> ${item.eta_minutes || 15} мин</p>
         <p><b>Волонтёр:</b> ${item.volunteer_name || "не назначен"}</p>
-
+        <p><b>Комментарий менеджера:</b> ${item.manager_comment || "нет"}</p>
         <div class="status-label">${statusText[item.status] || item.status}</div>
         <div class="mt">${actions}</div>
       </article>
@@ -147,8 +165,63 @@ function renderRequests(items) {
   });
 }
 
+function renderCrmTable(items) {
+  const body = document.getElementById("crmTableBody");
+  if (!body) return;
+
+  body.innerHTML = "";
+
+  if (!items.length) {
+    body.innerHTML = `<tr><td colspan="9">Нет заявок</td></tr>`;
+    return;
+  }
+
+  items.forEach((item) => {
+    body.innerHTML += `
+      <tr>
+        <td>#${item.id}<br><span class="muted">${item.created_at || ""}</span></td>
+        <td><b>${item.full_name}</b><br>${item.phone}<br>${item.age} лет</td>
+        <td>${item.problem_text}</td>
+        <td>${item.address}</td>
+        <td>
+          <select class="small-input" onchange="updateCrmField(${item.id}, 'status', this.value)">
+            <option value="new" ${item.status === "new" ? "selected" : ""}>Ожидает</option>
+            <option value="in_progress" ${item.status === "in_progress" ? "selected" : ""}>В работе</option>
+            <option value="done" ${item.status === "done" ? "selected" : ""}>Завершена</option>
+          </select>
+        </td>
+        <td>
+          <select class="small-input" onchange="updateCrmField(${item.id}, 'priority', this.value)">
+            <option value="high" ${item.priority === "high" ? "selected" : ""}>Высокий</option>
+            <option value="medium" ${item.priority === "medium" ? "selected" : ""}>Средний</option>
+            <option value="low" ${item.priority === "low" ? "selected" : ""}>Низкий</option>
+          </select>
+        </td>
+        <td>
+          <input class="small-input" value="${item.volunteer_name || ""}" 
+                 onchange="updateCrmField(${item.id}, 'volunteer_name', this.value)"
+                 placeholder="Волонтёр">
+        </td>
+        <td>
+          <input class="small-input" value="${item.manager_comment || ""}" 
+                 onchange="updateCrmField(${item.id}, 'manager_comment', this.value)"
+                 placeholder="Комментарий">
+        </td>
+        <td class="crm-table-actions">
+          <button class="btn danger" onclick="removeRequest(${item.id})">Удалить</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
 function setFilter(filter) {
   currentFilter = filter;
+  loadData();
+}
+
+function setPriority(filter) {
+  currentPriority = filter;
   loadData();
 }
 
@@ -164,6 +237,10 @@ async function updateRequest(id, payload, text = "Заявка обновлен�
   });
   notify(text);
   loadData();
+}
+
+function updateCrmField(id, field, value) {
+  updateRequest(id, { [field]: value }, "CRM-заявка обновлена");
 }
 
 function take(id) {
@@ -185,7 +262,6 @@ function setStatus(id, status) {
 async function removeRequest(id) {
   if (role !== "admin") return;
   if (!confirm("Удалить заявку?")) return;
-
   await api(`/api/sos/${id}`, { method: "DELETE" });
   notify("Заявка удалена");
   loadData();
@@ -194,12 +270,12 @@ async function removeRequest(id) {
 if (form) {
   if (!role) {
     form.style.display = "none";
-    if (accessHint) accessHint.innerText = "Войдите в систему, чтобы отправить SOS-заявку.";
+    if (accessHint) accessHint.innerHTML = `Войдите как пенсионер, чтобы отправить SOS-заявку. <a href="login.html">Войти</a>`;
   } else if (role !== "pensioner") {
     form.style.display = "none";
     if (accessHint) accessHint.innerText = "Создавать SOS-заявки может только пенсионер. Волонтёр и администратор работают со списком заявок.";
   } else {
-    if (accessHint) accessHint.innerText = "Вы вошли как пенсионер. Заполните форму, чтобы отправить заявку волонтёрам.";
+    if (accessHint) accessHint.innerText = "Заполните форму, чтобы создать заявку во внутренней CRM.";
   }
 
   form.addEventListener("submit", async (event) => {
@@ -213,7 +289,8 @@ if (form) {
       address: document.getElementById("address").value.trim(),
       coordinates: document.getElementById("coordinates")?.value.trim() || "",
       eta_minutes: Number(document.getElementById("eta_minutes")?.value || 15),
-      notification_channel: document.getElementById("notification_channel")?.value || "SMS"
+      notification_channel: document.getElementById("notification_channel")?.value || "SMS",
+      priority: document.getElementById("priority")?.value || "medium"
     };
 
     try {
@@ -221,9 +298,7 @@ if (form) {
         method: "POST",
         body: JSON.stringify(payload)
       });
-
-      form.reset();
-      notify("SOS-заявка отправлена");
+      notify("SOS-заявка создана во внутренней CRM");
       setTimeout(() => location.href = "history.html", 700);
     } catch (error) {
       alert(error.message);
@@ -234,12 +309,13 @@ if (form) {
 window.login = login;
 window.logout = logout;
 window.setFilter = setFilter;
+window.setPriority = setPriority;
 window.setSearch = setSearch;
 window.take = take;
 window.finish = finish;
 window.setStatus = setStatus;
+window.updateCrmField = updateCrmField;
 window.removeRequest = removeRequest;
 
 loadData();
 loadStats();
-

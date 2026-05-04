@@ -11,80 +11,36 @@
     <div class="logo-mark">SOS</div>
     <div>
       <h1>СоцПомощь</h1>
-      <span class="muted">Помощь рядом</span>
+      <span class="muted">Внутренняя CRM</span>
     </div>
   </div>
-
   <nav>
     <a href="index.html">Главная</a>
     <a href="app.html">Подать заявку</a>
     <a href="history.html">Заявки</a>
+    <a href="crm.html">CRM</a>
     <a href="login.html" id="loginBtn">Вход</a>
   </nav>
-
   <div id="roleBadge"></div>
 </header>
-
 <main class="container">
   <div class="panel">
     <h2>Подать SOS-заявку</h2>
     <p id="accessHint" class="muted"></p>
-
     <form id="sosForm" class="form-grid">
-      <div>
-        <label>ФИО</label>
-        <input type="text" id="full_name" placeholder="Мария Петровна Иванова" required>
-      </div>
-
-      <div>
-        <label>Телефон</label>
-        <input type="text" id="phone" placeholder="+7 391 111-11-11" required>
-      </div>
-
-      <div>
-        <label>Возраст</label>
-        <input type="number" id="age" placeholder="67" min="55" required>
-      </div>
-
-      <div>
-        <label>Как лучше связаться</label>
-        <select id="notification_channel">
-          <option>SMS</option>
-          <option>Звонок</option>
-          <option>Telegram</option>
-          <option>Push</option>
-          <option>Email</option>
-        </select>
-      </div>
-
-      <div class="full">
-        <label>Что случилось?</label>
-        <textarea id="problem_text" placeholder="Например: нужны лекарства, продукты, помощь по дому, сопровождение..." required></textarea>
-      </div>
-
-      <div>
-        <label>Адрес</label>
-        <input type="text" id="address" placeholder="с. Берёзовка, ул. Центральная, 12" required>
-      </div>
-
-      <div>
-        <label>Ориентир или координаты</label>
-        <input type="text" id="coordinates" placeholder="Например: голубой дом у магазина">
-      </div>
-
-      <div>
-        <label>Желаемое время помощи, мин</label>
-        <input type="number" id="eta_minutes" value="15" min="1">
-      </div>
-
-      <div class="full">
-        <button class="btn danger" type="submit">🚨 Отправить заявку</button>
-        <a class="btn ghost" href="history.html">Посмотреть заявки</a>
-      </div>
+      <div><label>ФИО</label><input type="text" id="full_name" placeholder="Мария Петровна Иванова" required></div>
+      <div><label>Телефон</label><input type="text" id="phone" placeholder="+7 391 111-11-11" required></div>
+      <div><label>Возраст</label><input type="number" id="age" placeholder="67" min="55" required></div>
+      <div><label>Приоритет</label><select id="priority"><option value="medium">Средний</option><option value="high">Высокий</option><option value="low">Низкий</option></select></div>
+      <div class="full"><label>Что случилось?</label><textarea id="problem_text" placeholder="Опишите проблему..." required></textarea></div>
+      <div><label>Адрес</label><input type="text" id="address" placeholder="с. Берёзовка, ул. Центральная, 12" required></div>
+      <div><label>Ориентир или координаты</label><input type="text" id="coordinates" placeholder="Например: голубой дом у магазина"></div>
+      <div><label>Как лучше связаться</label><select id="notification_channel"><option>SMS</option><option>Звонок</option><option>Telegram</option><option>Push</option><option>Email</option></select></div>
+      <div><label>Желаемое время помощи, мин</label><input type="number" id="eta_minutes" value="15" min="1"></div>
+      <div class="full"><button class="btn danger" type="submit">🚨 Отправить заявку</button><a class="btn ghost" href="history.html">Посмотреть заявки</a></div>
     </form>
   </div>
 </main>
-
 <script src="assets/js/app.js"></script>
 </body>
 </html>
